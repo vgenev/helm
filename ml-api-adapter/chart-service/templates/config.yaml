@@ -9,4 +9,4 @@ metadata:
       release: {{ .Release.Name }}
       heritage: {{ .Release.Service }}
 data:
-  default.json: {{ (.Values.config.default_json | replace "$ingress_host" .Values.ingress.hosts.api |  replace "$ingress_port" (printf "%.0f" .Values.service.externalPort) | replace "$kafka_host" $kafkaHost | replace "$kafka_port" (printf "%.0f" .Values.config.kafka_port) ) | quote }}
+  default.json: {{ (.Files.Get (print .Values.config.default_json) | replace "$ingress_host" .Values.ingress.hosts.api |  replace "$ingress_port" (printf "%.0f" .Values.service.externalPort) | replace "$kafka_host" $kafkaHost | replace "$kafka_port" (printf "%.0f" .Values.config.kafka_port) ) | quote }}
